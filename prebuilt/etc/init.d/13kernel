@@ -4,3 +4,38 @@
 echo "NO_NORMALIZED_SLEEPER" > /proc/sys/kernel/sched_features
 echo "NO_FAIR_SLEEPERS" > /proc/sys/kernel/sched_features
 echo "NO_GENTLE_FAIR_SLEEPERS" > /proc/sys/kernel/sched_features
+
+# non-kernel tweaks
+rm -f /cache/*.apk
+rm -f /cache/*.tmp
+rm -f /data/dalvik-cache/*.apk
+rm -f /data/dalvik-cache/*.tmp
+sysctl -w vm.overcommit_memory=1
+sysctl -w vm.page-cluster=3
+sysctl -w vm.drop_caches=3
+
+echo "10240" > /proc/sys/fs/inotify/max_user_watches
+echo "256" > /proc/sys/fs/inotify/max_user_instances
+echo "32000" > /proc/sys/fs/inotify/max_queued_events
+echo "15" > /proc/sys/fs/lease-break-time
+echo "165164" > /proc/sys/fs/file-max
+echo "1053696" > /proc/sys/fs/nr_open
+echo "256" > /proc/sys/kernel/random/write_wakeup_threshold
+echo "256" > /proc/sys/kernel/random/read_wakeup_threshold
+
+# File System Mounts
+#
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /dev
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /proc
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /sys
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nodev,data=writeback,barrier=0 -t auto /system
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /data
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /data/data
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /cache
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /acct
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /dev/pts
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /dev/cpuctl
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /mnt/asec
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /mnt/obb
+busybox mount -o remount,noatime,nodiratime,discard,noauto_da_alloc,nosuid,nodev,data=writeback,barrier=0 -t auto /mnt/sdcard
